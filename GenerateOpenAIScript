@@ -1,0 +1,51 @@
+#LLM generated
+# reference https://www.linkedin.com/pulse/generating-openai-scripts-using-chatgpt-ajit-jaokar-bynge/
+import openai
+
+# Set your OpenAI API key
+openai.api_key = "your-api-key"
+
+# Function to summarize text using OpenAI API
+def summarize_text(input_text, model="text-davinci-003", max_tokens=100, temperature=0.5):
+    """
+    Summarizes the given text using OpenAI's GPT model.
+    
+    Parameters:
+        input_text (str): Text to summarize.
+        model (str): Model to use (default: text-davinci-003).
+        max_tokens (int): Maximum tokens for the summary.
+        temperature (float): Sampling temperature for response creativity.
+        
+    Returns:
+        str: Summary of the input text.
+    """
+    try:
+        response = openai.Completion.create(
+            engine=model,
+            prompt=f"Summarize the following text:\n\n{input_text}",
+            max_tokens=max_tokens,
+            temperature=temperature
+        )
+        summary = response.choices[0].text.strip()
+        return summary
+    except Exception as e:
+        return f"Error: {e}"
+
+# Example usage
+if __name__ == "__main__":
+    # Sample input text
+    input_text = """
+    Artificial intelligence (AI) is intelligence demonstrated by machines,
+    as opposed to the natural intelligence displayed by humans and animals.
+    Leading AI textbooks define the field as the study of "intelligent agents":
+    any system that perceives its environment and takes actions that maximize its chance
+    of achieving its goals. Some popular AI applications include natural language processing,
+    machine learning, and robotics.
+    """
+
+    # Generate summary
+    summary = summarize_text(input_text)
+    print("Original Text:")
+    print(input_text)
+    print("\nSummary:")
+    print(summary)
